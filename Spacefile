@@ -1,0 +1,34 @@
+# Spacefile Docs: https://deta.space/docs/en/build/reference/spacefile
+v: 0
+micros:
+  - name: HolyNotifier
+    src: ./
+    engine: custom
+    primary: true
+    commands:
+      - go build -o server
+    run: ./server
+    dev: go run .
+    public_routes:
+      - '/twitchwebhook'
+      - '/telegramwebhook'
+    presets:
+      env:
+        - name: Client_Id
+          description: Client Id from dev.twitch.tv
+          default: "Insert Client Id here"
+        - name: Client_Secret
+          description: Client Secret from dev.twitch.tv
+          default: "Insert Client Secret here"
+        - name: Telegram_Token
+          description: Telegram Token
+          default: "Insert Telegram Token here"
+        - name: Telegram_Id
+          description: Your Telegram Id
+          default: "Insert Telegram Id Here"
+    actions:
+      - id: "check"
+        name: "Check"
+        description: "Check's subscription every 12 hours."
+        trigger: "schedule"
+        default_interval: "12 hours"
